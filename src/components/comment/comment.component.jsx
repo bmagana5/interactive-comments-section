@@ -1,12 +1,19 @@
 import { useContext } from "react";
 import { DataContext } from "../../contexts/data.context";
+import { ReactComponent as IconDelete } from "../../assets/images/icon-delete.svg";
+import { ReactComponent as IconEdit } from "../../assets/images/icon-edit.svg";
+import { ReactComponent as IconMinus } from "../../assets/images/icon-minus.svg";
+import { ReactComponent as IconPlus } from "../../assets/images/icon-plus.svg";
+import { ReactComponent as IconReply } from "../../assets/images/icon-reply.svg";
 
 import "./comment.styles.scss";
 
 const Comment = ({ comment }) => {
-    const { currentDate } = useContext(DataContext);
+    const { currentDate, user } = useContext(DataContext);
     const { content, createdAt, image, 
         replies, score, username } = comment;
+
+    const avatar = require(`../../assets${image.webp.slice(1)}`);
 
     const calculateTimePassed = () => {
         const msecs = Date.parse(currentDate) - Date.parse(createdAt);
@@ -46,17 +53,28 @@ const Comment = ({ comment }) => {
 
     return (
         <div className="comment-container">
-            <div>
-                <button></button>
-                <span></span>
-                <button></button>
+            <div className="score-container">
+                <button className="plus-button"><IconPlus/></button>
+                <span className="score-span">{score}</span>
+                <button className="minus-button"><IconMinus/></button>
             </div>
-            <div>
+            <div className="data-container">
                 <div className="comment-header">
-                    <img src="" alt="" />
+                    <img src={avatar} alt={username} />
                     <span className="username">{username}</span>
+                    {
+                        user.username === username && <span className="you-span">you</span>
+                    }
                     <span className="time-ago">{calculateTimePassed()}</span>
-                    <button className="reply-button">Reply</button>
+                    {
+                        user.username === username && <button className="delete-button"><IconDelete/>Delete</button>
+                    }
+                    {
+                        user.username === username ?
+                            <button className="edit-button"><IconEdit/>Edit</button>
+                            : <button className="reply-button"><IconReply/>Reply</button>
+
+                    }
                 </div>
                 <div className="comment-body">
                     {content}
