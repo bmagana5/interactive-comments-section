@@ -6,12 +6,14 @@ import { ReactComponent as IconMinus } from "../../assets/images/icon-minus.svg"
 import { ReactComponent as IconPlus } from "../../assets/images/icon-plus.svg";
 import { ReactComponent as IconReply } from "../../assets/images/icon-reply.svg";
 
+import ChildCommentThread from "../child-comment-thread/child-comment-thread.component";
+
 import "./comment.styles.scss";
 
 const Comment = ({ comment }) => {
     const { currentDate, user } = useContext(DataContext);
     const { content, createdAt, image, 
-        replies, score, username } = comment;
+        replies, replyingTo, score, username } = comment;
 
     const avatar = require(`../../assets${image.webp.slice(1)}`);
 
@@ -51,35 +53,42 @@ const Comment = ({ comment }) => {
         return Math.floor(msecs / denom);
     }
 
-    return (
-        <div className="comment-container">
-            <div className="score-container">
-                <button className="plus-button"><IconPlus/></button>
-                <span className="score-span">{score}</span>
-                <button className="minus-button"><IconMinus/></button>
-            </div>
-            <div className="data-container">
-                <div className="comment-header">
-                    <img src={avatar} alt={username} />
-                    <span className="username">{username}</span>
-                    {
-                        user.username === username && <span className="you-span">you</span>
-                    }
-                    <span className="time-ago">{calculateTimePassed()}</span>
-                    {
-                        user.username === username && <button className="delete-button"><IconDelete/>Delete</button>
-                    }
-                    {
-                        user.username === username ?
-                            <button className="edit-button"><IconEdit/>Edit</button>
-                            : <button className="reply-button"><IconReply/>Reply</button>
+    console.log(replies);
 
-                    }
+    return (
+        <div className="parent-container">
+            <div className="comment-container">
+                <div className="score-container">
+                    <button className="plus-button"><IconPlus/></button>
+                    <span className="score-span">{score}</span>
+                    <button className="minus-button"><IconMinus/></button>
                 </div>
-                <div className="comment-body">
-                    {content}
+                <div className="data-container">
+                    <div className="comment-header">
+                        <img src={avatar} alt={username} />
+                        <span className="username">{username}</span>
+                        {
+                            user.username === username && <span className="you-span">you</span>
+                        }
+                        <span className="time-ago">{calculateTimePassed()}</span>
+                        {
+                            user.username === username && <button className="delete-button"><IconDelete/>Delete</button>
+                        }
+                        {
+                            user.username === username ?
+                                <button className="edit-button"><IconEdit/>Edit</button>
+                                : <button className="reply-button"><IconReply/>Reply</button>
+
+                        }
+                    </div>
+                    <div className="comment-body">
+                        {replyingTo && <span className="replying-to-user">@{replyingTo}</span>}{content}
+                    </div>
                 </div>
             </div>
+            {
+                replies && <ChildCommentThread comments={replies}/>
+            }
         </div>
     );
 };

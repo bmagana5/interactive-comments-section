@@ -6,6 +6,9 @@
     background-color: var(--very-light-gray);
 
     .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         margin: auto;
         width: 50%;
         min-width: 480px;
