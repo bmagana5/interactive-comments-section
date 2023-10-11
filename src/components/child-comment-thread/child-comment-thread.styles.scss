@@ -3,13 +3,24 @@
     justify-content: flex-start;
     width: 100%;
     .left-aside-container {
+        display: flex;
+        justify-content: center;
         height: 100%;
-        min-width: 16.67%;
+        min-width: 12%;
+
         .vertical-bar {
             width: 3px;
             height: 100%;
-            margin: 0 auto;
             background-color: var(--light-gray);
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--light-gray-hover);
+            }
+
+            &:active {
+                background-color: var(--light-gray-active);
+            }
         }
     }
 
@@ -19,6 +30,6 @@
         flex-direction: column;
         row-gap: 1rem;
         height: 100%;
-        width: 83.33%;
+        width: 88%;
     }
 }

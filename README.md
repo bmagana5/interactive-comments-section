@@ -95,7 +95,7 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
+- [The Cleanest Trick for Autogrowing Textareas](https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/) - Textarea input elements do not have a native "autogrow" functionality as you'd expect like divs do. This article by Chris Coyler gives a simple example on how to make your textarea element fill its growing parent container. In a nutshell, you have to generate a new invisible element that is a clone of your textarea style-wise and has the exact text content. This element will grow as the textarea receives text and consequently, the textarea will grow to fill up its parent container.
 - [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
 
 **Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**

@@ -15,7 +15,7 @@ const App = () => {
             <div className='main-container'>
                 <CommentFeed />
                 {
-                    user && <InputBar image={user.image}/>
+                    user && <InputBar image={user.image} type={'comment'}/>
                 }
             </div>
         </div>
