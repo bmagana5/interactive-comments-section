@@ -8,8 +8,12 @@ import "./comment-feed.styles.scss";
 const CommentFeed = () => {
     const { user, mainComments } = useContext(DataContext);
 
+    const scrollHandler = () => {
+        // console.log('scrolling');
+    };
+
     return (
-        <div className="comment-feed-container">
+        <div className="comment-feed-container" onScroll={scrollHandler}>
             {
                 mainComments.map((comment) => {
                     return comment.username === user.username ?

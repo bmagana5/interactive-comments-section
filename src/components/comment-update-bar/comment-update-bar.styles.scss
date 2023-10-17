@@ -1,0 +1,30 @@
+.comment-update-bar {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    width: 100%;
+
+    .comment-update-button-container {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+
+        button {
+            width: 16.67%;
+            padding: .75rem .5rem;
+            margin: 0 .25rem auto .75rem;
+            border-radius: .4rem;
+            background-color: var(--moderate-blue);
+            outline: solid 1px var(--moderate-blue);
+            border: 1px solid var(--moderate-blue);
+            color: var(--white);
+            cursor: pointer;
+
+            &:active{
+                background-color: var(--light-grayish-blue);
+                outline: solid 1px var(--light-grayish-blue);
+                border: 1px solid var(--light-grayish-blue);
+            }
+        }
+    }
+}

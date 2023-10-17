@@ -7,11 +7,11 @@ const getWindowDimensions = () => {
     };
 };
 
-export const WindowDimensionsContext = createContext({
+export const WindowContext = createContext({
     windowDimensions: {}
 });
 
-export const WindowDimensionsProvider = ({ children }) => {
+export const WindowProvider = ({ children }) => {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
     useEffect(() => {
@@ -27,5 +27,5 @@ export const WindowDimensionsProvider = ({ children }) => {
         windowDimensions
     };
 
-    return <WindowDimensionsContext.Provider value={value}>{children}</WindowDimensionsContext.Provider>
+    return <WindowContext.Provider value={value}>{children}</WindowContext.Provider>
 };

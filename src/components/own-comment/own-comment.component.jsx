@@ -7,6 +7,7 @@ import { ReactComponent as IconPlus } from "../../assets/images/icon-plus.svg";
 import ChildCommentThread from "../../components/child-comment-thread/child-comment-thread.component";
 
 import "./own-comment.styles.scss";
+import CommentUpdateBar from "../comment-update-bar/comment-update-bar.component";
 
 const OwnComment = ({ comment }) => {
     const { calculateTimePassed } = useContext(DataContext);
@@ -19,10 +20,6 @@ const OwnComment = ({ comment }) => {
 
     const toggleEditing = () => {
         setIsEditing(!isEditing);
-    };
-
-    const updateComment = (event) => {
-        setCommentBody(event.target.value);
     };
 
     return (
@@ -45,16 +42,19 @@ const OwnComment = ({ comment }) => {
                             <button className="delete-button"><IconDelete/>Delete</button>
                             {
                                 isEditing ? 
-                                    <button className="cancel-edit-button" onClick={toggleEditing}><IconEdit/>Cancel</button>
+                                    <button className="cancel-button" onClick={toggleEditing}><IconEdit/>Cancel</button>
                                     :<button className="edit-button" onClick={toggleEditing}><IconEdit/>Edit</button>
                             }
                         </div>
                     </div>
                     {
                         isEditing ?
-                            <textarea className="comment-textarea" value={commentBody} onChange={updateComment}>
-
-                            </textarea>
+                            <CommentUpdateBar 
+                                type="edit"
+                                target={{ username: replyingTo }}
+                                commentBody={commentBody}
+                                setCommentBody={setCommentBody} 
+                                toggleEditing={toggleEditing} />
                             : <div className="comment-body">
                                 {replyingTo && <span className="replying-to-user">@{replyingTo}</span>}{commentBody}
                             </div>

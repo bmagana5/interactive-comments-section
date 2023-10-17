@@ -27,6 +27,11 @@ html, body {
 * {
   font-family: 'Rubik';
   box-sizing: border-box;
+  
+  &::after {
+    box-sizing: border-box;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }

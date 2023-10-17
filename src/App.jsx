@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { DataContext } from './contexts/data.context';
 
-import InputBar from './components/input-bar/input-bar.component';
-import './App.scss';
+import CommentCreateBar from './components/comment-create-bar/comment-create-bar.component';
 import CommentFeed from './components/comment-feed/comment-feed.component';
+import './App.scss';
 
 const App = () => {
     const { user } = useContext(DataContext);
@@ -15,7 +15,7 @@ const App = () => {
             <div className='main-container'>
                 <CommentFeed />
                 {
-                    user && <InputBar image={user.image} type={'comment'}/>
+                    user && <CommentCreateBar image={user.image} type={'comment'}/>
                 }
             </div>
         </div>

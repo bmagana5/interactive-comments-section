@@ -4,15 +4,15 @@ import { DataProvider } from './contexts/data.context';
 import App from './App';
 
 import './index.scss';
-import { WindowDimensionsProvider } from './contexts/window-dimensions.context';
+import { WindowProvider } from './contexts/window.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <WindowDimensionsProvider>
+    <WindowProvider>
       <DataProvider>
         <App />
       </DataProvider>
-    </WindowDimensionsProvider>
+    </WindowProvider>
   </React.StrictMode>
 );

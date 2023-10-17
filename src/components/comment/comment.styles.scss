@@ -246,6 +246,7 @@
             .comment-body {
                 font-size: var(--paragraph);
                 line-height: 1.5rem;
+                word-break: break-word;
     
                 .replying-to-user {
                     color: var(--moderate-blue);

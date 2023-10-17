@@ -5,7 +5,7 @@ import { ReactComponent as IconPlus } from "../../assets/images/icon-plus.svg";
 import { ReactComponent as IconReply } from "../../assets/images/icon-reply.svg";
 
 import ChildCommentThread from "../child-comment-thread/child-comment-thread.component";
-import InputBar from "../input-bar/input-bar.component";
+import CommentCreateBar from "../comment-create-bar/comment-create-bar.component";
 
 import "./comment.styles.scss";
 
@@ -69,7 +69,7 @@ const Comment = ({ comment }) => {
             </div>
             {
                 isReplyingTo
-                && <InputBar image={user.image}
+                && <CommentCreateBar image={user.image}
                     type={'reply'}
                     target={{ id, username }}
                     toggleReply={() => toggleReply()} />
