@@ -4,15 +4,15 @@ import { ReactComponent as IconDelete } from "../../assets/images/icon-delete.sv
 import { ReactComponent as IconEdit } from "../../assets/images/icon-edit.svg";
 import { ReactComponent as IconMinus } from "../../assets/images/icon-minus.svg";
 import { ReactComponent as IconPlus } from "../../assets/images/icon-plus.svg";
-import ChildCommentThread from "../../components/child-comment-thread/child-comment-thread.component";
+import { ChildCommentThread } from "../../components/child-comment-thread/child-comment-thread.component";
 
 import "./own-comment.styles.scss";
-import CommentUpdateBar from "../comment-update-bar/comment-update-bar.component";
+import { CommentUpdateBar } from "../comment-update-bar/comment-update-bar.component";
 
 const OwnComment = ({ comment }) => {
-    const { calculateTimePassed } = useContext(DataContext);
+    const { calculateTimePassed, deleteComment } = useContext(DataContext);
     const [isEditing, setIsEditing] = useState(false);
-    const { content, createdAt, image, 
+    const { content, createdAt, id, image, 
         replies, replyingTo, score, username } = comment;
     const [commentBody, setCommentBody] = useState(content);
 
@@ -21,6 +21,12 @@ const OwnComment = ({ comment }) => {
     const toggleEditing = () => {
         setIsEditing(!isEditing);
     };
+
+    const deleteCommentHandler = () => {
+        // console.log('delete own comment', comment);
+        deleteComment(id);
+    };
+
 
     return (
         <div className="owned-parent-container">
@@ -39,7 +45,7 @@ const OwnComment = ({ comment }) => {
                             <span className="time-ago">{calculateTimePassed(createdAt)}</span>
                         </div>
                         <div className="header-buttons">
-                            <button className="delete-button"><IconDelete/>Delete</button>
+                            <button className="delete-button" onClick={deleteCommentHandler}><IconDelete/>Delete</button>
                             {
                                 isEditing ? 
                                     <button className="cancel-button" onClick={toggleEditing}><IconEdit/>Cancel</button>
@@ -51,7 +57,7 @@ const OwnComment = ({ comment }) => {
                         isEditing ?
                             <CommentUpdateBar 
                                 type="edit"
-                                target={{ username: replyingTo }}
+                                target={{ username: replyingTo, commentId: id }}
                                 commentBody={commentBody}
                                 setCommentBody={setCommentBody} 
                                 toggleEditing={toggleEditing} />
@@ -68,4 +74,4 @@ const OwnComment = ({ comment }) => {
     );
 };
 
-export default OwnComment;
+export { OwnComment };

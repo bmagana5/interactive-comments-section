@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { DataContext } from './contexts/data.context';
 
-import CommentCreateBar from './components/comment-create-bar/comment-create-bar.component';
-import CommentFeed from './components/comment-feed/comment-feed.component';
+import { CommentCreateBar } from './components/comment-create-bar/comment-create-bar.component';
+import { CommentFeed } from './components/comment-feed/comment-feed.component';
 import './App.scss';
 
 const App = () => {

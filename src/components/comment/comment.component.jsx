@@ -4,8 +4,8 @@ import { ReactComponent as IconMinus } from "../../assets/images/icon-minus.svg"
 import { ReactComponent as IconPlus } from "../../assets/images/icon-plus.svg";
 import { ReactComponent as IconReply } from "../../assets/images/icon-reply.svg";
 
-import ChildCommentThread from "../child-comment-thread/child-comment-thread.component";
-import CommentCreateBar from "../comment-create-bar/comment-create-bar.component";
+import { ChildCommentThread } from "../child-comment-thread/child-comment-thread.component";
+import { CommentCreateBar } from "../comment-create-bar/comment-create-bar.component";
 
 import "./comment.styles.scss";
 
@@ -21,8 +21,6 @@ const Comment = ({ comment }) => {
     const toggleReply = () => {
         setIsReplyingTo(!isReplyingTo);
     };
-
-    // console.log(replies);
 
     /* 
         TODO: use state and track if plus/minus has been pressed and set to active
@@ -71,7 +69,7 @@ const Comment = ({ comment }) => {
                 isReplyingTo
                 && <CommentCreateBar image={user.image}
                     type={'reply'}
-                    target={{ id, username }}
+                    target={{ commentId: id, username }}
                     toggleReply={() => toggleReply()} />
             }
             {
@@ -81,4 +79,4 @@ const Comment = ({ comment }) => {
     );
 };
 
-export default Comment;
+export { Comment };

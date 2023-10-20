@@ -1,9 +1,9 @@
 
 import { useContext } from "react";
-import Comment from "../comment/comment.component";
+import { Comment } from "../comment/comment.component";
 import "./child-comment-thread.styles.scss";
 import { DataContext } from "../../contexts/data.context";
-import OwnComment from "../own-comment/own-comment.component";
+import { OwnComment } from "../own-comment/own-comment.component";
 
 const ChildCommentThread = ({ comments }) => {
     const { user } = useContext(DataContext);
@@ -26,4 +26,4 @@ const ChildCommentThread = ({ comments }) => {
     );
 };
 
-export default ChildCommentThread;
+export { ChildCommentThread };

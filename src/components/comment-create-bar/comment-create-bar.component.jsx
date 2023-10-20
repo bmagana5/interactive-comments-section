@@ -1,11 +1,14 @@
 import { useContext, useState } from 'react';
 import { WindowContext } from '../../contexts/window.context';
 
+import { Textarea } from '../textarea/textarea.component';
+
 import './comment-create-bar.styles.scss';
-import Textarea from '../textarea/textarea.component';
+import { DataContext } from '../../contexts/data.context';
 
 const CommentCreateBar = ({ image, type, target, toggleReply }) => {
     const { windowDimensions } = useContext(WindowContext);
+    const { addComment } = useContext(DataContext);
     const [newCommentText, setNewCommentText] = useState('');
 
     const { /*png,*/ webp } = image;
@@ -27,13 +30,31 @@ const CommentCreateBar = ({ image, type, target, toggleReply }) => {
     */
     const handleSubmit = () => {
         if (newCommentText.length > 0) {
-            console.log('comment submitted!');
+            switch (type) {
+                case 'reply':
+                    console.log('comment submitted!');
+                    // console.log('target: ', target);
+                    // console.log('comment id: ', target.commentId);
+                    // console.log('username: ', target.username);
+                    addComment({
+                        content: newCommentText,
+                        replyingTo: target.username,
+                        targetCommentId: target.commentId,
+                        type
+                    });
+                    toggleReply();
+                    break;
+                default: // case for 'comment' type
+                    addComment({
+                        content: newCommentText,
+                        type
+                    });
+            }
             setNewCommentText('');
-            toggleReply();
         } else {
             console.log('empty message');
         }
-    }
+    };
 
     return (
         windowDimensions.width > 480 ?
@@ -58,4 +79,4 @@ const CommentCreateBar = ({ image, type, target, toggleReply }) => {
     );
 };
 
-export default CommentCreateBar;
+export { CommentCreateBar };

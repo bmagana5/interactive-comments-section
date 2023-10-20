@@ -1,10 +1,12 @@
-import { useState } from "react";
-import Textarea from "../textarea/textarea.component";
+import { useContext, useState } from "react";
+import { Textarea } from "../textarea/textarea.component";
 
 import "./comment-update-bar.styles.scss";
+import { DataContext } from "../../contexts/data.context";
 
 const CommentUpdateBar = ({ type, target, commentBody, setCommentBody, toggleEditing }) => {
     const [tempComment, setTempComment] = useState(commentBody);
+    const { updateComment } = useContext(DataContext);
 
     /*
         we need to track current comment and temporary comment.
@@ -14,6 +16,9 @@ const CommentUpdateBar = ({ type, target, commentBody, setCommentBody, toggleEdi
         prop function to update the commentBody state prop. 
     */
     const handleSubmit = () => {
+        /* send temp comment up to Data Context to update main 
+        comments array state */
+        updateComment(target, tempComment);
         setCommentBody(tempComment);
         toggleEditing();
     };
@@ -32,4 +37,4 @@ const CommentUpdateBar = ({ type, target, commentBody, setCommentBody, toggleEdi
     );
 };
 
-export default CommentUpdateBar;
+export { CommentUpdateBar };

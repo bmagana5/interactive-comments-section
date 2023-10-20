@@ -6,6 +6,8 @@ const Textarea = ({ type, target, commentText, updateCommentText }) => {
     // use a ref hook to get a reference to the textarea parent's html node
     const textDivRef = useRef(null);
 
+    const commentValue = target && target.username ? `@${target.username} ${commentText}` : commentText;
+
     /*  the textarea's containing div will have a data-replicated-value attribute
         that will get a copy of the textarea value as well. In CSS, an ::after element 
         on the containing div will be a clone of the textarea to a tee; it will have 
@@ -19,7 +21,7 @@ const Textarea = ({ type, target, commentText, updateCommentText }) => {
             if a target exists, we want to filter out the '@username ' string and 
             only keep the comment text when saving the comment. 
         */
-        if (target) {
+        if (target && target.username) {
             const substr = event.target.value.substring(`@${target.username} `.length, event.target.value.length);
             updateCommentText(substr);
         } else {
@@ -38,12 +40,12 @@ const Textarea = ({ type, target, commentText, updateCommentText }) => {
     return (
         <div className={`textarea-wrapper ${type !== 'comment' ? 'grow' : ''} ${type === 'edit' ? 'type-edit' : ''}`}
             ref={textDivRef}
-            data-replicated-value={target ? `@${target.username} ${commentText}` : commentText}>
+            data-replicated-value={commentValue}>
             <textarea className="textarea"
                 name="comment-input"
                 placeholder="Add a comment..."
                 /* if a target exists, then we want to include the username of the target with the comment */
-                value={target ? `@${target.username} ${commentText}` : commentText}
+                value={commentValue}
                 onChange={handleCommentChange}
                 onFocus={focusHandler}
                 autoFocus />
@@ -51,4 +53,4 @@ const Textarea = ({ type, target, commentText, updateCommentText }) => {
     );
 };
 
-export default Textarea;
+export { Textarea };
