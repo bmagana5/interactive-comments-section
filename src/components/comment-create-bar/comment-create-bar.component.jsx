@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
+import { DataContext } from '../../contexts/data.context';
 import { WindowContext } from '../../contexts/window.context';
 
 import { Textarea } from '../textarea/textarea.component';
 
 import './comment-create-bar.styles.scss';
-import { DataContext } from '../../contexts/data.context';
 
 const CommentCreateBar = ({ image, type, target, toggleReply }) => {
     const { windowDimensions } = useContext(WindowContext);
@@ -19,23 +19,10 @@ const CommentCreateBar = ({ image, type, target, toggleReply }) => {
         setNewCommentText(value);
     };
 
-    /* 
-        create a new comment using:
-            "id" (generate new id)
-            "content" (message itself)
-            "createdAt" (Date)
-            "score" (init 0)
-            "replyingTo" (@username if replying)
-            "user" (you)
-    */
     const handleSubmit = () => {
         if (newCommentText.length > 0) {
             switch (type) {
                 case 'reply':
-                    console.log('comment submitted!');
-                    // console.log('target: ', target);
-                    // console.log('comment id: ', target.commentId);
-                    // console.log('username: ', target.username);
                     addComment({
                         content: newCommentText,
                         replyingTo: target.username,
@@ -51,8 +38,6 @@ const CommentCreateBar = ({ image, type, target, toggleReply }) => {
                     });
             }
             setNewCommentText('');
-        } else {
-            console.log('empty message');
         }
     };
 

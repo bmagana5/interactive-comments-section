@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const getTime = (msecs, denom) => {
     return Math.floor(msecs / denom);
@@ -190,7 +189,6 @@ export const DataProvider = ({ children }) => {
         */
         const commentsToDelete = replies.filter(reply => commentId === reply.parent_comment_id).map(reply => reply.comment_id);
         commentsToDelete.push(commentId);
-        // console.log(commentsToDelete);
 
         setReplies(replies.filter(reply => !(reply.parent_comment_id === commentId || reply.comment_id === commentId)));
         setComments(comments.filter(comm => !commentsToDelete.includes(comm.id)));

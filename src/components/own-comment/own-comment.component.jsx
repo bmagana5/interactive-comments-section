@@ -1,13 +1,15 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../../contexts/data.context";
+
 import { ReactComponent as IconDelete } from "../../assets/images/icon-delete.svg";
 import { ReactComponent as IconEdit } from "../../assets/images/icon-edit.svg";
 import { ReactComponent as IconMinus } from "../../assets/images/icon-minus.svg";
 import { ReactComponent as IconPlus } from "../../assets/images/icon-plus.svg";
+
 import { ChildCommentThread } from "../../components/child-comment-thread/child-comment-thread.component";
+import { CommentUpdateBar } from "../comment-update-bar/comment-update-bar.component";
 
 import "./own-comment.styles.scss";
-import { CommentUpdateBar } from "../comment-update-bar/comment-update-bar.component";
 
 const OwnComment = ({ comment }) => {
     const { calculateTimePassed, deleteComment } = useContext(DataContext);
@@ -23,7 +25,6 @@ const OwnComment = ({ comment }) => {
     };
 
     const deleteCommentHandler = () => {
-        // console.log('delete own comment', comment);
         deleteComment(id);
     };
 
