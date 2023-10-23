@@ -1,6 +1,11 @@
 .textarea-wrapper {
     display: grid;
     width: 75%;
+
+    @media only screen and (max-width: 719px) {
+        width: 100%;
+    }
+
     &.type-edit {
         width: 100%;
     }

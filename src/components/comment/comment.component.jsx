@@ -9,8 +9,10 @@ import { ChildCommentThread } from "../child-comment-thread/child-comment-thread
 import { CommentCreateBar } from "../comment-create-bar/comment-create-bar.component";
 
 import "./comment.styles.scss";
+import { WindowContext } from "../../contexts/window.context";
 
 const Comment = ({ comment }) => {
+    const { windowDimensions } = useContext(WindowContext);
     const { calculateTimePassed, user } = useContext(DataContext);
     const [isReplyingTo, setIsReplyingTo] = useState(false);
 
@@ -30,33 +32,65 @@ const Comment = ({ comment }) => {
 
     return (
         <div className="parent-container">
-            <div className="comment-container">
-                <div className="score-container">
-                    <button className="plus-button"><IconPlus /></button>
-                    <span className="score-span">{score}</span>
-                    <button className="minus-button"><IconMinus /></button>
-                </div>
-                <div className="data-container">
-                    <div className="comment-header">
-                        <div className="header-info">
-                            <img src={avatar} alt={username} />
-                            <span className="username">{username}</span>
-                            <span className="time-ago">{calculateTimePassed(createdAt)}</span>
+            {
+                windowDimensions.width > 719 ?
+                    <div className="comment-container">
+                        <div className="score-container">
+                            <button className="plus-button"><IconPlus /></button>
+                            <span className="score-span">{score}</span>
+                            <button className="minus-button"><IconMinus /></button>
                         </div>
-                        <div className="header-buttons">
-                            {
-                                !isReplyingTo ?
-                                    <button className="reply-button" onClick={toggleReply}><IconReply />Reply</button>
-                                    : <button className="cancel-button" onClick={toggleReply}><IconReply />Cancel</button>
+                        <div className="data-container">
+                            <div className="comment-header">
+                                <div className="header-info">
+                                    <img src={avatar} alt={username} />
+                                    <span className="username">{username}</span>
+                                    <span className="time-ago">{calculateTimePassed(createdAt)}</span>
+                                </div>
+                                <div className="header-buttons">
+                                    {
+                                        !isReplyingTo ?
+                                            <button className="reply-button" onClick={toggleReply}><IconReply />Reply</button>
+                                            : <button className="cancel-button" onClick={toggleReply}><IconReply />Cancel</button>
 
-                            }
+                                    }
+                                </div>
+                            </div>
+                            <div className="comment-body">
+                                {replyingTo && <span className="replying-to-user">@{replyingTo}</span>}{content}
+                            </div>
                         </div>
                     </div>
-                    <div className="comment-body">
-                        {replyingTo && <span className="replying-to-user">@{replyingTo}</span>}{content}
+                    : <div className="comment-container">
+                        <div className="data-container">    
+                            <div className="comment-header">
+                                <div className="header-info">
+                                    <img src={avatar} alt={username} />
+                                    <span className="username">{username}</span>
+                                    <span className="time-ago">{calculateTimePassed(createdAt)}</span>
+                                </div>
+                            </div>
+                            <div className="comment-body">
+                                {replyingTo && <span className="replying-to-user">@{replyingTo}</span>}{content}
+                            </div>
+                        </div>
+                        <div className="footer-container">
+                            <div className="score-container">
+                                <button className="plus-button"><IconPlus /></button>
+                                <span className="score-span">{score}</span>
+                                <button className="minus-button"><IconMinus /></button>
+                            </div>
+                            <div className="footer-buttons">
+                                {
+                                    !isReplyingTo ?
+                                        <button className="reply-button" onClick={toggleReply}><IconReply />Reply</button>
+                                        : <button className="cancel-button" onClick={toggleReply}><IconReply />Cancel</button>
+
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+            }
             {
                 isReplyingTo
                 && <CommentCreateBar image={user.image}

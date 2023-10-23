@@ -42,7 +42,7 @@ const CommentCreateBar = ({ image, type, target, toggleReply }) => {
     };
 
     return (
-        windowDimensions.width > 480 ?
+        windowDimensions.width > 719 ?
             <div className='comment-create-bar-container'>
                 <img src={img} alt="" />
                 <Textarea type={type} 
@@ -51,12 +51,12 @@ const CommentCreateBar = ({ image, type, target, toggleReply }) => {
                     updateCommentText={updateCommentText} />
                 <button onClick={handleSubmit}>SEND</button>
             </div>
-            : <div>
+            : <div className='comment-create-bar-container'>
                 <Textarea type={type}
                     target={target ? target : null}
                     commentText={newCommentText}
                     updateCommentText={updateCommentText}/>
-                <div>
+                <div className='image-button-container'>
                     <img src={img} alt="" />
                     <button onClick={handleSubmit}>SEND</button>
                 </div>
