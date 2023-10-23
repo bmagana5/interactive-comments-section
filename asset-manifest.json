@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.6432ed83.css",
-    "main.js": "/static/js/main.7f7f125a.js",
+    "main.css": "/static/css/main.77b28cca.css",
+    "main.js": "/static/js/main.48dd461a.js",
     "static/media/Rubik-VariableFont_wght.ttf": "/static/media/Rubik-VariableFont_wght.3a4acc0356c6ea73f2c3.ttf",
     "static/media/image-amyrobson.webp": "/static/media/image-amyrobson.974bbf3c9ffb709f30a0.webp",
     "static/media/image-juliusomo.webp": "/static/media/image-juliusomo.595ca29b9049f4c6ce66.webp",
@@ -13,11 +13,11 @@
     "static/media/icon-reply.svg": "/static/media/icon-reply.bfb4589d45cd96abd45e3b82f7e7bbc6.svg",
     "static/media/icon-minus.svg": "/static/media/icon-minus.4aa6933cb1575b3c54fa67d84a61efaf.svg",
     "static/media/icon-delete.svg": "/static/media/icon-delete.86cedbf2e37529f9c8f1f744254059b0.svg",
-    "main.6432ed83.css.map": "/static/css/main.6432ed83.css.map",
-    "main.7f7f125a.js.map": "/static/js/main.7f7f125a.js.map"
+    "main.77b28cca.css.map": "/static/css/main.77b28cca.css.map",
+    "main.48dd461a.js.map": "/static/js/main.48dd461a.js.map"
   },
   "entrypoints": [
-    "static/css/main.6432ed83.css",
-    "static/js/main.7f7f125a.js"
+    "static/css/main.77b28cca.css",
+    "static/js/main.48dd461a.js"
   ]
 }
