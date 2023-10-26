@@ -1,18 +1,18 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../../contexts/data.context";
-
-import { ReactComponent as IconDelete } from "../../assets/images/icon-delete.svg";
-import { ReactComponent as IconEdit } from "../../assets/images/icon-edit.svg";
-import { ReactComponent as IconMinus } from "../../assets/images/icon-minus.svg";
-import { ReactComponent as IconPlus } from "../../assets/images/icon-plus.svg";
+import { WindowContext } from "../../contexts/window.context";
 
 import { ChildCommentThread } from "../../components/child-comment-thread/child-comment-thread.component";
 import { CommentUpdateBar } from "../comment-update-bar/comment-update-bar.component";
+import { ScoreButtonGroup } from "../score-button-group/score-button-group.component";
+import { ActionButton } from "../action-button/action-button.component";
 
 import "./own-comment.styles.scss";
 
 const OwnComment = ({ comment }) => {
     const { calculateTimePassed, deleteComment } = useContext(DataContext);
+    const { windowDimensions } = useContext(WindowContext);
+
     const [isEditing, setIsEditing] = useState(false);
     const { content, createdAt, id, image, 
         replies, replyingTo, score, username } = comment;
@@ -32,11 +32,10 @@ const OwnComment = ({ comment }) => {
     return (
         <div className="owned-parent-container">
             <div className="comment-container">
-                <div className="score-container">
-                    <button className="plus-button"><IconPlus/></button>
-                    <span className="score-span">{score}</span>
-                    <button className="minus-button"><IconMinus/></button>
-                </div>
+                {
+                    windowDimensions.width > 719 
+                    && <ScoreButtonGroup score={score}/>
+                }
                 <div className="data-container">
                     <div className="comment-header">
                         <div className="header-info">
@@ -45,14 +44,17 @@ const OwnComment = ({ comment }) => {
                             <span className="you-span">you</span>
                             <span className="time-ago">{calculateTimePassed(createdAt)}</span>
                         </div>
-                        <div className="header-buttons">
-                            <button className="delete-button" onClick={deleteCommentHandler}><IconDelete/>Delete</button>
-                            {
-                                isEditing ? 
-                                    <button className="cancel-button" onClick={toggleEditing}><IconEdit/>Cancel</button>
-                                    :<button className="edit-button" onClick={toggleEditing}><IconEdit/>Edit</button>
-                            }
-                        </div>
+                        {
+                            windowDimensions.width > 719 
+                            && <div className="header-buttons">
+                                <ActionButton type="delete" action={deleteCommentHandler}/>
+                                {
+                                    isEditing ? 
+                                        <ActionButton type="cancel" action={toggleEditing}/>
+                                        : <ActionButton type="edit" action={toggleEditing}/>
+                                }
+                            </div>
+                        }
                     </div>
                     {
                         isEditing ?
@@ -67,6 +69,20 @@ const OwnComment = ({ comment }) => {
                             </div>
                     }
                 </div>
+                {
+                    windowDimensions.width < 720 
+                    && <div className="footer-container">
+                        <ScoreButtonGroup score={score}/>
+                        <div className="footer-buttons">
+                            <ActionButton type="delete" action={deleteCommentHandler}/>
+                            {
+                                isEditing ? 
+                                    <ActionButton type="cancel" action={toggleEditing}/>
+                                    : <ActionButton type="edit" action={toggleEditing}/>
+                            }
+                        </div>
+                    </div>
+                }
             </div>
             {
                 replies && <ChildCommentThread comments={replies}/>

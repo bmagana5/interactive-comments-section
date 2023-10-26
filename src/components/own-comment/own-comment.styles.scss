@@ -12,68 +12,33 @@
         background-color: var(--white);
         color: var(--grayish-blue);
     
-        .score-container {
-            display: flex;
+        @media only screen and (max-width: 719px) {
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: 100%;
-            min-width: 8.33%;
-    
-            & > * {
+            row-gap: 1rem;
+            padding: 1rem .75rem;
+
+            .footer-container {
                 display: flex;
-                justify-content: center;
+                justify-content: space-between;
                 align-items: center;
-                width: 2.25rem;
-                height: 2rem;
-                padding: .5rem;
-                background-color: var(--very-light-gray);
-            }
-    
-            button {
-                border: transparent;
-                outline: transparent;
-                cursor: pointer;
-            }
-    
-            .plus-button {
-                border-top-left-radius: .5rem;
-                border-top-right-radius: .5rem;
-    
-                &:active { 
-                    svg {
-                        path {
-                            fill: var(--dark-blue);
-                        }
-                    }
-                }
-            }
-    
-            .score-span {
-                color: var(--dark-blue);
-                font-weight: 500;
-            }
-    
-            .minus-button {
-                border-bottom-left-radius: .5rem;
-                border-bottom-right-radius: .5rem;
-    
-                &:active { 
-                    svg {
-                        path {
-                            fill: var(--dark-blue);
-                        }
-                    }
+                width: 100%;
+
+                .footer-buttons {
+                    display: flex;
                 }
             }
         }
-    
+
         .data-container {
             display: flex;
             flex-direction: column;
             width: 91.67%;
             padding: .5rem;
             padding-top: 0;
+
+            @media only screen and (max-width: 719px) {
+                width: 100%;
+            }
     
             .comment-header {
                 display: flex;
@@ -121,89 +86,6 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
-                    .delete-button {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 1rem;
-                        font-weight: 500;
-                        color: var(--soft-red);
-                        outline: transparent;
-                        border: transparent;
-                        background-color: inherit;
-                        cursor: pointer;
-    
-                        svg {
-                            margin: 0 .3rem 0 0;
-                        }
-
-                        &:active {
-                            opacity: .5;
-                            svg {
-                                path {
-                                    fill: var(--soft-red);
-                                }
-                            }
-                        }
-                    }
-        
-                    .edit-button {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        margin-left: auto;
-                        font-size: 1rem;
-                        font-weight: 500;
-                        color: var(--dark-blue);
-                        outline: transparent;
-                        border: transparent;
-                        background-color: inherit;
-                        cursor: pointer;
-    
-                        svg {
-                            margin: 0 .3rem 0 0;
-                        }
-
-                        &:active {
-                            color: var(--light-grayish-blue);
-                            svg {
-                                path {
-                                    fill: var(--light-grayish-blue);
-                                }
-                            }
-                        }
-                    }
-
-                    .cancel-button {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        margin-left: auto;
-                        font-size: 1rem;
-                        font-weight: 500;
-                        color: var(--soft-red);
-                        outline: transparent;
-                        border: transparent;
-                        background-color: inherit;
-                        cursor: pointer;
-
-                        svg {
-                            margin: 0 .3rem 0 0;
-                            path {
-                                fill: var(--soft-red);
-                            }
-                        }
-        
-                        &:active {
-                            opacity: .5;
-                            svg {
-                                path {
-                                    fill: var(--soft-red);
-                                }
-                            }
-                        }
-                    }
                 }
     
     

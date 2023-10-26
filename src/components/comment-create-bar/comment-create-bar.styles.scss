@@ -14,9 +14,9 @@
 
     @media only screen and (max-width: 719px) {
         flex-direction: column;
-        row-gap: 1rem;
         align-items: center;
-        padding: 1.25rem;
+        row-gap: 1rem;
+        padding: 1rem .75rem;
 
         .image-button-container {
             min-width: 100%;
@@ -33,7 +33,7 @@
     }
 
     button {
-        width: 6rem;
+        width: 6.5rem;
         padding: .75rem .5rem;
         margin: 0 .25rem auto .75rem;
         border-radius: .4rem;

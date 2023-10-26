@@ -1,0 +1,110 @@
+
+.delete-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--soft-red);
+    outline: transparent;
+    border: transparent;
+    background-color: inherit;
+    cursor: pointer;
+
+    svg {
+        margin: 0 .3rem 0 0;
+    }
+
+    &:active {
+        opacity: .5;
+        svg {
+            path {
+                fill: var(--soft-red);
+            }
+        }
+    }
+}
+
+.edit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--dark-blue);
+    outline: transparent;
+    border: transparent;
+    background-color: inherit;
+    cursor: pointer;
+
+    svg {
+        margin: 0 .3rem 0 0;
+    }
+
+    &:active {
+        color: var(--light-grayish-blue);
+        svg {
+            path {
+                fill: var(--light-grayish-blue);
+            }
+        }
+    }
+}
+
+.reply-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--dark-blue);
+    outline: transparent;
+    border: transparent;
+    background-color: inherit;
+    cursor: pointer;
+
+    svg {
+        margin: 0 .3rem 0 0;
+    }
+
+    &:active {
+        color: var(--light-grayish-blue);
+        svg {
+            path {
+                fill: var(--light-grayish-blue);
+            }
+        }
+    }
+}
+
+.cancel-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--soft-red);
+    outline: transparent;
+    border: transparent;
+    background-color: inherit;
+    cursor: pointer;
+
+    svg {
+        margin: 0 .3rem 0 0;
+        path {
+            fill: var(--soft-red);
+        }
+    }
+
+    &:active {
+        opacity: .5;
+        svg {
+            path {
+                fill: var(--soft-red);
+            }
+        }
+    }
+}

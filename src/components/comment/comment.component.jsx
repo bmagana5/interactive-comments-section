@@ -1,12 +1,10 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../../contexts/data.context";
 
-import { ReactComponent as IconMinus } from "../../assets/images/icon-minus.svg";
-import { ReactComponent as IconPlus } from "../../assets/images/icon-plus.svg";
-import { ReactComponent as IconReply } from "../../assets/images/icon-reply.svg";
-
 import { ChildCommentThread } from "../child-comment-thread/child-comment-thread.component";
 import { CommentCreateBar } from "../comment-create-bar/comment-create-bar.component";
+import { ScoreButtonGroup } from "../score-button-group/score-button-group.component";
+import { ActionButton } from "../action-button/action-button.component";
 
 import "./comment.styles.scss";
 import { WindowContext } from "../../contexts/window.context";
@@ -35,11 +33,7 @@ const Comment = ({ comment }) => {
             {
                 windowDimensions.width > 719 ?
                     <div className="comment-container">
-                        <div className="score-container">
-                            <button className="plus-button"><IconPlus /></button>
-                            <span className="score-span">{score}</span>
-                            <button className="minus-button"><IconMinus /></button>
-                        </div>
+                        <ScoreButtonGroup score={score}/>
                         <div className="data-container">
                             <div className="comment-header">
                                 <div className="header-info">
@@ -50,9 +44,8 @@ const Comment = ({ comment }) => {
                                 <div className="header-buttons">
                                     {
                                         !isReplyingTo ?
-                                            <button className="reply-button" onClick={toggleReply}><IconReply />Reply</button>
-                                            : <button className="cancel-button" onClick={toggleReply}><IconReply />Cancel</button>
-
+                                            <ActionButton type="reply" action={toggleReply}/>
+                                            :<ActionButton type="cancel" action={toggleReply}/>
                                     }
                                 </div>
                             </div>
@@ -75,17 +68,12 @@ const Comment = ({ comment }) => {
                             </div>
                         </div>
                         <div className="footer-container">
-                            <div className="score-container">
-                                <button className="plus-button"><IconPlus /></button>
-                                <span className="score-span">{score}</span>
-                                <button className="minus-button"><IconMinus /></button>
-                            </div>
+                            <ScoreButtonGroup score={score}/>
                             <div className="footer-buttons">
                                 {
                                     !isReplyingTo ?
-                                        <button className="reply-button" onClick={toggleReply}><IconReply />Reply</button>
-                                        : <button className="cancel-button" onClick={toggleReply}><IconReply />Cancel</button>
-
+                                        <ActionButton type="reply" action={toggleReply}/>
+                                        :<ActionButton type="cancel" action={toggleReply}/>
                                 }
                             </div>
                         </div>
