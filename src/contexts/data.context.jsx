@@ -8,10 +8,14 @@ export const DataContext = createContext({
     user: null,
     mainComments: [],
     currentDate: '',
+    deletingComment: false,
+    commentToDeleteId: null,
     addComment: () => {},
     updateComment: () => {},
-    deleteComment: () => {},
+    declineDelete: () => {},
+    confirmDelete: () => {},
     calculateTimePassed: () => {},
+    showDeleteModal: () => {}
 });
 
 export const DataProvider = ({ children }) => {
@@ -21,7 +25,9 @@ export const DataProvider = ({ children }) => {
     const [replies, setReplies] = useState([]);
     const [currentDate, setCurrentDate] = useState('');
     const [mainComments, setMainComments] = useState([]);
-    const [commentIndex, setCommentIndex] = useState(null);
+    const [commentIndex, setCommentIndex] = useState(null);             // index to use for newly created comment
+    const [deletingComment, setDeletingComment] = useState(false);      // flag that checks if the delete message modal should be shown
+    const [commentToDeleteId, setCommentToDeleteId] = useState(null);   // saves the comment id that is staged for deletion
     
     const calculateTimePassed = (createdAt) => {
         const msecs = Date.parse(currentDate) - Date.parse(createdAt);
@@ -181,23 +187,44 @@ export const DataProvider = ({ children }) => {
         }));
     }
 
-    const deleteComment = (commentId) => {
+    
+    const showDeleteModal = (id) => {
+        setCommentToDeleteId(id);
+        setDeletingComment(true);
+    };
+    
+    const declineDelete = () => {
+        resetCommentDeletionState();
+    };
+    
+    const confirmDelete = () => {
+        deleteComment();
+        resetCommentDeletionState();
+    };
+
+    const resetCommentDeletionState = () => {
+        setDeletingComment(false);
+        setCommentToDeleteId(null);
+    }
+    
+    const deleteComment = () => {
         /* 
             when deleting a comment, check in replies if it's a parent.
             if so, get every child comment and remove from comments state 
             before removing parent.
         */
-        const commentsToDelete = replies.filter(reply => commentId === reply.parent_comment_id).map(reply => reply.comment_id);
-        commentsToDelete.push(commentId);
-
-        setReplies(replies.filter(reply => !(reply.parent_comment_id === commentId || reply.comment_id === commentId)));
-        setComments(comments.filter(comm => !commentsToDelete.includes(comm.id)));
+       const commentsToDelete = replies.filter(reply => commentToDeleteId === reply.parent_comment_id).map(reply => reply.comment_id);
+       commentsToDelete.push(commentToDeleteId);
+       
+       setReplies(replies.filter(reply => !(reply.parent_comment_id === commentToDeleteId || reply.comment_id === commentToDeleteId)));
+       setComments(comments.filter(comm => !commentsToDelete.includes(comm.id)));
     };
 
     const value = {
         user, mainComments, currentDate, 
-        addComment, updateComment, deleteComment,
-        calculateTimePassed
+        deletingComment, commentToDeleteId,
+        addComment, updateComment, declineDelete, 
+        confirmDelete, calculateTimePassed, showDeleteModal
     };
 
     return <DataContext.Provider value={value}>{children}</DataContext.Provider>

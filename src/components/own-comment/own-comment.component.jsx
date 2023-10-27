@@ -10,7 +10,7 @@ import { ActionButton } from "../action-button/action-button.component";
 import "./own-comment.styles.scss";
 
 const OwnComment = ({ comment }) => {
-    const { calculateTimePassed, deleteComment } = useContext(DataContext);
+    const { calculateTimePassed, /*deleteComment*/ showDeleteModal } = useContext(DataContext);
     const { windowDimensions } = useContext(WindowContext);
 
     const [isEditing, setIsEditing] = useState(false);
@@ -24,10 +24,13 @@ const OwnComment = ({ comment }) => {
         setIsEditing(!isEditing);
     };
 
-    const deleteCommentHandler = () => {
-        deleteComment(id);
-    };
+    // const deleteCommentHandler = () => {
+    //     deleteComment(id);
+    // };
 
+    const deleteCommentHandler = () => {
+        showDeleteModal(id);
+    }
 
     return (
         <div className="owned-parent-container">

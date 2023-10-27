@@ -1,0 +1,14 @@
+.modal-container {
+    // this makes the modal appear on top and covering the whole viewport
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-blue-transparent);
+}
