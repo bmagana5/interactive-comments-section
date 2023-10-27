@@ -24,10 +24,6 @@ const OwnComment = ({ comment }) => {
         setIsEditing(!isEditing);
     };
 
-    // const deleteCommentHandler = () => {
-    //     deleteComment(id);
-    // };
-
     const deleteCommentHandler = () => {
         showDeleteModal(id);
     };

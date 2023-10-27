@@ -23,11 +23,6 @@ const Comment = ({ comment }) => {
         setIsReplyingTo(!isReplyingTo);
     };
 
-    /* 
-        TODO: use state and track if plus/minus has been pressed and set to active
-            - update score for that particular comment and updated comments context
-    */
-
     const upvoteComment = () => {
         castVote({ commentId: id, currentScore: score, type: 'upvote' });
     };
