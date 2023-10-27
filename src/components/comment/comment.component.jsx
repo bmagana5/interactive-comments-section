@@ -11,7 +11,7 @@ import { WindowContext } from "../../contexts/window.context";
 
 const Comment = ({ comment }) => {
     const { windowDimensions } = useContext(WindowContext);
-    const { calculateTimePassed, user } = useContext(DataContext);
+    const { user, userCommentVotes, calculateTimePassed, castVote } = useContext(DataContext);
     const [isReplyingTo, setIsReplyingTo] = useState(false);
 
     const { content, createdAt, id, image,
@@ -28,12 +28,33 @@ const Comment = ({ comment }) => {
             - update score for that particular comment and updated comments context
     */
 
+    const upvoteComment = () => {
+        castVote({ commentId: id, currentScore: score, type: 'upvote' });
+    };
+
+    const downvoteComment = () => {
+        castVote({ commentId: id, currentScore: score, type: 'downvote' });
+    };
+
+    const getScoreHighlight = () => {
+        const commentVote = userCommentVotes.find(commVote => commVote.id === id);
+        if (commentVote) {
+            return commentVote.type;
+        }
+        return '';
+    }
+
+    const scoreHighlight = getScoreHighlight();
+
     return (
         <div className="parent-container">
             {
                 windowDimensions.width > 719 ?
                     <div className="comment-container">
-                        <ScoreButtonGroup score={score}/>
+                        <ScoreButtonGroup score={score} 
+                            scoreStatus={scoreHighlight}
+                            upvoteHandler={upvoteComment} 
+                            downvoteHandler={downvoteComment}/>
                         <div className="data-container">
                             <div className="comment-header">
                                 <div className="header-info">
@@ -68,7 +89,10 @@ const Comment = ({ comment }) => {
                             </div>
                         </div>
                         <div className="footer-container">
-                            <ScoreButtonGroup score={score}/>
+                            <ScoreButtonGroup score={score} 
+                                scoreStatus={scoreHighlight}
+                                upvoteHandler={upvoteComment} 
+                                downvoteHandler={downvoteComment}/>
                             <div className="footer-buttons">
                                 {
                                     !isReplyingTo ?

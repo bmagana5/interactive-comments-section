@@ -3,12 +3,12 @@ import { ReactComponent as IconPlus } from "../../assets/images/icon-plus.svg";
 
 import "./score-button-group.styles.scss";
 
-const ScoreButtonGroup = ({ score }) => {
+const ScoreButtonGroup = ({ score, scoreStatus, upvoteHandler, downvoteHandler }) => {
     return (
         <div className="score-container">
-            <button className="plus-button"><IconPlus /></button>
-            <span className="score-span">{score}</span>
-            <button className="minus-button"><IconMinus /></button>
+            <button className="plus-button" onClick={upvoteHandler}><IconPlus /></button>
+            <span className={`score-span ${scoreStatus}`}>{score}</span>
+            <button className="minus-button" onClick={downvoteHandler}><IconMinus /></button>
         </div>
     );
 };

@@ -10,7 +10,7 @@ import { ActionButton } from "../action-button/action-button.component";
 import "./own-comment.styles.scss";
 
 const OwnComment = ({ comment }) => {
-    const { calculateTimePassed, /*deleteComment*/ showDeleteModal } = useContext(DataContext);
+    const { userCommentVotes, calculateTimePassed, showDeleteModal, castVote } = useContext(DataContext);
     const { windowDimensions } = useContext(WindowContext);
 
     const [isEditing, setIsEditing] = useState(false);
@@ -30,14 +30,35 @@ const OwnComment = ({ comment }) => {
 
     const deleteCommentHandler = () => {
         showDeleteModal(id);
+    };
+
+    const upvoteComment = () => {
+        castVote({ commentId: id, currentScore: score, type: 'upvote' });
+    };
+
+    const downvoteComment = () => {
+        castVote({ commentId: id, currentScore: score, type: 'downvote' });
+    };
+
+    const getScoreHighlight = () => {
+        const commentVote = userCommentVotes.find(commVote => commVote.id === id);
+        if (commentVote) {
+            return commentVote.type;
+        }
+        return '';
     }
+
+    const scoreHighlight = getScoreHighlight();
 
     return (
         <div className="owned-parent-container">
             <div className="comment-container">
                 {
                     windowDimensions.width > 719 
-                    && <ScoreButtonGroup score={score}/>
+                    && <ScoreButtonGroup score={score} 
+                            scoreStatus={scoreHighlight}
+                            upvoteHandler={upvoteComment} 
+                            downvoteHandler={downvoteComment}/>
                 }
                 <div className="data-container">
                     <div className="comment-header">
@@ -75,7 +96,10 @@ const OwnComment = ({ comment }) => {
                 {
                     windowDimensions.width < 720 
                     && <div className="footer-container">
-                        <ScoreButtonGroup score={score}/>
+                        <ScoreButtonGroup score={score} 
+                            scoreStatus={scoreHighlight}
+                            upvoteHandler={upvoteComment} 
+                            downvoteHandler={downvoteComment}/>
                         <div className="footer-buttons">
                             <ActionButton type="delete" action={deleteCommentHandler}/>
                             {

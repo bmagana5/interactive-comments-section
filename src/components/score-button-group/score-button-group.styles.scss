@@ -42,6 +42,14 @@
     .score-span {
         color: var(--dark-blue);
         font-weight: 500;
+
+        &.upvote {
+            color: var(--moderate-blue-bright);
+        }
+
+        &.downvote {
+            color: var(--soft-red);
+        }
     }
 
     .minus-button {

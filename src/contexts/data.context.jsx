@@ -10,12 +10,14 @@ export const DataContext = createContext({
     currentDate: '',
     deletingComment: false,
     commentToDeleteId: null,
+    userCommentVotes: [],
     addComment: () => {},
     updateComment: () => {},
     declineDelete: () => {},
     confirmDelete: () => {},
     calculateTimePassed: () => {},
-    showDeleteModal: () => {}
+    showDeleteModal: () => {},
+    castVote: () => {},
 });
 
 export const DataProvider = ({ children }) => {
@@ -28,7 +30,8 @@ export const DataProvider = ({ children }) => {
     const [commentIndex, setCommentIndex] = useState(null);             // index to use for newly created comment
     const [deletingComment, setDeletingComment] = useState(false);      // flag that checks if the delete message modal should be shown
     const [commentToDeleteId, setCommentToDeleteId] = useState(null);   // saves the comment id that is staged for deletion
-    
+    const [userCommentVotes, setUserCommentVotes] = useState([]);       // { id: int(), type: string('downvote' | 'upvote') }
+
     const calculateTimePassed = (createdAt) => {
         const msecs = Date.parse(currentDate) - Date.parse(createdAt);
         
@@ -218,13 +221,59 @@ export const DataProvider = ({ children }) => {
        
        setReplies(replies.filter(reply => !(reply.parent_comment_id === commentToDeleteId || reply.comment_id === commentToDeleteId)));
        setComments(comments.filter(comm => !commentsToDelete.includes(comm.id)));
+       setUserCommentVotes(userCommentVotes.filter(commentVote => !commentsToDelete.includes(commentVote.id)));
+    };
+
+    const castVote = (commentData) => {
+        const { commentId, currentScore, type } = commentData;
+        const commentVote = userCommentVotes.find(commentVote => commentVote.id === commentId);
+
+        if (commentVote) {
+            if (commentVote.type === 'upvote') {
+                if (type === 'upvote') {
+                    updateCommentScore(commentId, currentScore - 1);
+                    setUserCommentVotes(userCommentVotes.filter(commVote => commVote.id !== commentId));
+                } else if (type === 'downvote') {
+                    updateCommentScore(commentId, currentScore - 2);
+                    setUserCommentVotes(userCommentVotes.map(commVote => commVote.id === commentId ? { ...commVote, type } : commVote));
+                }
+            } else if (commentVote.type === 'downvote') {
+                if (type === 'upvote') {
+                    updateCommentScore(commentId, currentScore + 2);
+                    setUserCommentVotes(userCommentVotes.map(commVote => commVote.id === commentId ? { ...commVote, type } : commVote));
+                } else if (type === 'downvote') {
+                    updateCommentScore(commentId, currentScore + 1);
+                    setUserCommentVotes(userCommentVotes.filter(commVote => commVote.id !== commentId));
+                }
+            }
+        } else {
+            setUserCommentVotes([...userCommentVotes, { id: commentId, type }]);
+
+            type === 'upvote' ? 
+                updateCommentScore(commentId, currentScore + 1)
+                : updateCommentScore(commentId, currentScore - 1);
+        }
+    };
+    
+    const updateCommentScore = (commentId, newScore) => {
+        setComments(comments.map(comm => {
+            if (comm.id === commentId) {
+                return {
+                    ...comm,
+                    score: newScore
+                };
+            } else {
+                return comm;
+            }
+        }));
     };
 
     const value = {
         user, mainComments, currentDate, 
-        deletingComment, commentToDeleteId,
+        deletingComment, commentToDeleteId, userCommentVotes,
         addComment, updateComment, declineDelete, 
-        confirmDelete, calculateTimePassed, showDeleteModal
+        confirmDelete, calculateTimePassed, showDeleteModal,
+        castVote
     };
 
     return <DataContext.Provider value={value}>{children}</DataContext.Provider>
